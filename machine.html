@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>MachineLearning</title>
+<style>
+div#test {
+    margin: auto; 
+    border:rgb(5, 22, 121) 3px solid; 
+    padding:10px 40px 40px 40px; 
+    background-color:rgb(65, 112, 139); 
+    width:50%;
+}
+
+body {
+    background-color: rgb(14, 13, 13);
+    margin: 50px;
+    padding: 50px;
+    
+}
+h1, h2 {
+    color: azure;
+    text-align: center;
+
+}
+</style>
+    
+
+<script type="text/javascript">
+// pos is position of where the user in the test or which question they're up to
+var pos = 0, test, test_status, question, choice, choices, chA, chB, chC, correct = 0;
+// this is a multidimensional array with 4 inner array elements with 5 elements inside them
+// if you don't want answers viewable in the code, then you should use PHP and mySQL database
+var questions = [
+  ["Machine Learning was coined in 1959 by","Turing","Samuel","Franklin","A"],  
+  ["Types of Learning Algorithms except", "Supervised", "Unsupervised", "Neural Networks", "C"],
+  ["Connectionists systems inspired by biological networks", "Artificial neural networks", "Machine Learning", "Data Science", "A"],
+  ["Set of related supervised learning methods used for classification and regression", "Support Vector Machines", "Bayesian Networks", "Genetic Algorithms", "A"],
+  ["Directed acyclic graphical model that represents a set of random variables and their conditional independence", "Support Vector Machines", "Bayesian Networks", "Genetic Algorithms", "B"],
+  ["Non linear modeling techniques that are able to model complex functions ", "Support Vector Machines", "Neural Networks", "Bayesian Networks", "B"],
+  ["Neural Networks are used when the exact nature of the relationship of inputs and outputs is not known","TRUE", "FALSE","MAYBE", "A" ],
+  ["Neural Networks can be applied in the following problems except","Prediction","Knots","Classification", "B"],
+  ["This consists of an input and an output layer with one or more hidden layers of sigmoid nodes","Radial Basis Functions","Multiplayer Perceptron","Support Vector Machines", "B"],
+  ["Non parametric method used for classification and regression in pattern recognition", "Logistic Regression","kNN", "Linear Regression", "B"],
+  ["Anomaly Detection makes use of", "ANN","kNN","Q learning", "B"],
+  ["Dimensionality Reduction ","Factor Analysis", "BIRCH", "CURE","A"],
+  ["Structured Prediction", "CCA","Neural Networks", "Hidden Markov Model", "C"],
+  ["Supervised Learning, except", "Decision Trees", "Logistic Regression","Local outlier factor","C"],
+  ["Dimensionality Reduction","Decision Trees","Logarithmic Regression","Factor Analysis", "C"]
+];
+// this get function is short for the getElementById function  
+function get(x){
+  return document.getElementById(x);
+}
+function renderQuestion(){
+  test = get("test");
+  if(pos >= questions.length){
+    test.innerHTML = "<h2>You got "+correct+" of "+questions.length+" questions correct</h2>";
+    get("test_status").innerHTML = "Test completed";
+    // resets the variable to allow users to restart the test
+    pos = 0;
+    correct = 0;
+    // stops rest of renderQuestion function running when test is completed
+    return false;
+  }
+  get("test_status").innerHTML = "Question "+(pos+1)+" of "+questions.length;
+  question = questions[pos][0];
+  chA = questions[pos][1];
+  chB = questions[pos][2];
+  chC = questions[pos][3];
+  test.innerHTML = "<h3>"+question+"</h3>";
+  // the += appends to the data we started on the line above
+  test.innerHTML += "<input type='radio' name='choices' value='A'> "+chA+"<br>";
+  test.innerHTML += "<input type='radio' name='choices' value='B'> "+chB+"<br>";
+  test.innerHTML += "<input type='radio' name='choices' value='C'> "+chC+"<br><br>";
+  test.innerHTML += "<button onclick='checkAnswer()'>Submit Answer</button>";
+}
+function checkAnswer(){
+  // use getElementsByName because we have an array which it will loop through
+  choices = document.getElementsByName("choices");
+  for(var i=0; i<choices.length; i++){
+    if(choices[i].checked){
+      choice = choices[i].value;
+    }
+  }
+  // checks if answer matches the correct choice
+  if(choice == questions[pos][4]){
+    //each time there is a correct answer this value increases
+    correct++;
+  }
+  // changes position of which character user is on
+  pos++;
+  // then the renderQuestion function runs again to go to next question
+  renderQuestion();
+}
+window.addEventListener("load", renderQuestion, false);
+</script>
+</head>
+<body>
+    <div class="container"> 
+        <h1>Machine Learning</h1>  <center> <button class="btn btn-3" onclick="location.href = 'quiz.html'; " >Back </button> </center> 
+        <h2 id="test_status"></h2>
+        <div id="test"></div>
+
+
+    </div>  
+</body>
+</html>
+

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Quiz</title>
+<style>
+div#test { 
+    margin: auto;
+    border:rgb(5, 22, 121) 3px solid; 
+    padding:10px 40px 40px 40px; 
+    background-color:rgb(65, 112, 139); 
+    width:50%;    
+    
+}
+
+
+
+body {
+    background-color: rgb(14, 13, 13);
+    margin: 50px;
+    padding: 50px;
+    
+    
+}
+h1, h2 {
+    color: azure;
+    text-align: center;
+
+}
+</style>
+    
+
+<script type="text/javascript">
+// pos is position of where the user in the test or which question they're up to
+var pos = 0, test, test_status, question, choice, choices, chA, chB, chC, correct = 0;
+// this is a multidimensional array with 4 inner array elements with 5 elements inside them
+// if you don't want answers viewable in the code, then you should use PHP and mySQL database
+var questions = [
+  ["Who is the father of the Modern Computer Science","Babbage","Turing","Franklin","B"],  
+  ["What does HTML stand for?", "hypertext markup languange", "home text marker list", "hyperlinks and text markup languange", "A"],
+  ["Which among these is a browser?", "google chrome", "world wide consortium", "microsoft", "A"],
+  ["What does CSS stand for?", "creative style sheet", "cascading style sheets", "computer style sheets", "B"],
+  ["Multi-disciplinary field that uses scientific methods, processes, algorithms and systems to extract knowledge and insights from structured and unstructured data", "machine learning", "data science", "blockchain", "B"],
+  ["What does BMI stand for?", "Body Mass Intel", "Body Mask Index", "Body Mass Index", "C"],
+  ["Which of the following the standardized system of tagging text files?","html", "css","javascript", "A" ],
+  ["Which HTML element do we put Javascript?","js","javascript","script", "C"],
+  ["Which of the following is not a programming languange","java","javascript","css", "C"],
+  ["This refers to the styling of the page", "html","javascript", "css", "C"],
+  ["This provides functionality to the page", "html","javascript","css", "B"],
+  ["This statement is correct: Causation is not equal to Correlation","True", "False", "Call me, Maybe","A"],
+  ["Scientific study of algorithms and statistical models to effectively perform a specific task", "Machine Learning","Reinforcement Learning", "Clustering", "A"],
+  ["Machine Learning algorithm which makes use of a set of data that has both inputs and desired outputs","Supervised ML", "Unsupervised ML", "Reinforced leaning","A"],
+  ["It is an open, distributed ledger that can record transactions between two parties efficiently and in a verifiable and permanent way","Artificial Intelligence","Blockchain","Machine Learning", "B"]
+];
+// this get function is short for the getElementById function  
+function get(x){
+  return document.getElementById(x);
+}
+function renderQuestion(){
+  test = get("test");
+  if(pos >= questions.length){
+    test.innerHTML = "<h2>You got "+correct+" of "+questions.length+" questions correct</h2>";
+    get("test_status").innerHTML = "Test completed";
+    // resets the variable to allow users to restart the test
+    pos = 0;
+    correct = 0;
+    // stops rest of renderQuestion function running when test is completed
+    return false;
+  }
+  get("test_status").innerHTML = "Question "+(pos+1)+" of "+questions.length;
+  question = questions[pos][0];
+  chA = questions[pos][1];
+  chB = questions[pos][2];
+  chC = questions[pos][3];
+  test.innerHTML = "<h3>"+question+"</h3>";
+  // the += appends to the data we started on the line above
+  test.innerHTML += "<input type='radio' name='choices' value='A'> "+chA+"<br>";
+  test.innerHTML += "<input type='radio' name='choices' value='B'> "+chB+"<br>";
+  test.innerHTML += "<input type='radio' name='choices' value='C'> "+chC+"<br><br>";
+  test.innerHTML += "<button onclick='checkAnswer()'>Submit Answer</button>";
+}
+function checkAnswer(){
+  // use getElementsByName because we have an array which it will loop through
+  choices = document.getElementsByName("choices");
+  for(var i=0; i<choices.length; i++){
+    if(choices[i].checked){
+      choice = choices[i].value;
+    }
+  }
+  // checks if answer matches the correct choice
+  if(choice == questions[pos][4]){
+    //each time there is a correct answer this value increases
+    correct++;
+  }
+  // changes position of which character user is on
+  pos++;
+  // then the renderQuestion function runs again to go to next question
+  renderQuestion();
+}
+window.addEventListener("load", renderQuestion, false);
+</script>
+</head>
+<body>
+    <div class="container"> 
+        <h1>General Questions</h1>  <center> <button class="btn btn-3" onclick="location.href = 'quiz.html';">Back</button> </center> 
+        <h2 id="test_status"></h2>
+        <div id="test"></div>
+
+
+    </div>  
+</body>
+</html>
+

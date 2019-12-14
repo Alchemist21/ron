@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>AI</title>
+<style>
+div#test { 
+    margin: auto;
+    border:rgb(5, 22, 121) 3px solid; 
+    padding:10px 40px 40px 40px; 
+    background-color:rgb(65, 112, 139); 
+    width:50%;
+}
+
+body {
+    background-color: rgb(14, 13, 13);
+    margin: 50px;
+    padding: 50px;
+    
+}
+h1, h2 {
+    color: azure;
+    text-align: center;
+
+}
+</style>
+    
+
+<script type="text/javascript">
+// pos is position of where the user in the test or which question they're up to
+var pos = 0, test, test_status, question, choice, choices, chA, chB, chC, correct = 0;
+// this is a multidimensional array with 4 inner array elements with 5 elements inside them
+// if you don't want answers viewable in the code, then you should use PHP and mySQL database
+var questions = [
+  ["Type of machine learning algorithm where you find patterns in a stream of input without requiring an external interference to label the inputs ","Supervised","Unsupervised","NLP","B"],  
+  ["Earliest known chatbot was in 1966 named", "ALICE", "ELIZA", "ALEXA", "B"],
+  ["This database set is composed of handwritten digits and includes 60,000 training examples and 10,000 test examples", "Neural Transfer dataset", "MNIST", "NLP database", "B"],
+  ["Representational layer in a deep learning architecture that transforms an atomic word to a positional representation", "word2vec", "mnist", "NLP", "A"],
+  ["Describes Tensorflow except", "pay per use", "open source software", "developed by Google", "A"],
+  ["This company's Deep Mind Technology developed a system capable or learning how to play Atari", "Facebook", "IBM", "Google", "C"],
+  ["Attacks against supervised machine learning are categorized as the following, except","attack specificity", "security violation","sensitivity", "C" ],
+  ["True of ConvNet except","commonly applied to visual imagery","use variation of multilayer perceptions","use regression", "C"],
+  ["Hebbian learning also commonly known as with learning without a teacher","Supervised","Unsupervised","Reinforced", "B"],
+  ["Common algorithms for unsupervised learning except", "Clustering","Hebbain Leaning", "Non Generative Adversarial Networks", "C"],
+  ["Anomaly Detection makes use of", "ANN","kNN","Q learning", "B"],
+  ["Method calculation of weights to be used in the network","Backward Chaining", "Backpropagation", "Binary Tree","B"],
+  ["A simple neural network consists of the following, except", "input layer","hidden layer", "second layer", "C"],
+  ["Supervised Learning, except", "Decision Trees", "Logistic Regression","Local outlier factor","C"],
+  ["Emergent algorithm has the following characteristics, except ","self stabilizing","requires global visibility","achieves predictive global effects", "B"]
+];
+// this get function is short for the getElementById function  
+function get(x){
+  return document.getElementById(x);
+}
+function renderQuestion(){
+  test = get("test");
+  if(pos >= questions.length){
+    test.innerHTML = "<h2>You got "+correct+" of "+questions.length+" questions correct</h2>";
+    get("test_status").innerHTML = "Test completed";
+    // resets the variable to allow users to restart the test
+    pos = 0;
+    correct = 0;
+    // stops rest of renderQuestion function running when test is completed
+    return false;
+  }
+  get("test_status").innerHTML = "Question "+(pos+1)+" of "+questions.length;
+  question = questions[pos][0];
+  chA = questions[pos][1];
+  chB = questions[pos][2];
+  chC = questions[pos][3];
+  test.innerHTML = "<h3>"+question+"</h3>";
+  // the += appends to the data we started on the line above
+  test.innerHTML += "<input type='radio' name='choices' value='A'> "+chA+"<br>";
+  test.innerHTML += "<input type='radio' name='choices' value='B'> "+chB+"<br>";
+  test.innerHTML += "<input type='radio' name='choices' value='C'> "+chC+"<br><br>";
+  test.innerHTML += "<button onclick='checkAnswer()'>Submit Answer</button>";
+}
+function checkAnswer(){
+  // use getElementsByName because we have an array which it will loop through
+  choices = document.getElementsByName("choices");
+  for(var i=0; i<choices.length; i++){
+    if(choices[i].checked){
+      choice = choices[i].value;
+    }
+  }
+  // checks if answer matches the correct choice
+  if(choice == questions[pos][4]){
+    //each time there is a correct answer this value increases
+    correct++;
+  }
+  // changes position of which character user is on
+  pos++;
+  // then the renderQuestion function runs again to go to next question
+  renderQuestion();
+}
+window.addEventListener("load", renderQuestion, false);
+</script>
+</head>
+<body>
+    <div class="container"> 
+        <h1>Artificial Intelligence</h1> <center><button class="btn btn-3" onclick="location.href = 'quiz.html'; " >Back </button> </center>  
+        <h2 id="test_status"></h2>
+        <div id="test"></div>
+
+
+    </div>  
+</body>
+</html>
+

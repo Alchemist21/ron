@@ -1,0 +1,89 @@
+.navbar {
+  background-color:rgb(0, 0, 0);
+ }
+
+#particle {
+  background-color:				rgb(0, 0, 0);  /*#6600cc*/
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  z-index:0;
+}
+#overlay {
+  position: relative;
+}
+
+h5 {
+  color: azure;
+  text-align: justify;
+}
+body {
+    background: #efefef;
+    color: hsl(240,30,10);
+    font: 700 14px/1 Montserrat, sans-serif;
+    letter-spacing: 0.125em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+h4 {
+  color: rgb(255, 255, 255);
+  text-align: justify;
+}
+
+h5 {
+  text-align: center;
+  color: azure;
+}
+label {
+  color: azure;
+}
+
+h3 {
+  color: azure;
+  text-align: center;
+}
+h1, h2 {
+  color: azure;
+  text-align: center;
+}
+
+
+.boxed {
+  padding: 8px;
+  margin: 5px;
+
+  
+background: linear-gradient(124deg, #000000, #000000, #025858, #700721, #3a0132, #036161, #460240, #000000, #000000);
+background-size: 1800% 1800%;
+
+-webkit-animation: rainbow 18s ease infinite;
+-z-animation: rainbow 18s ease infinite;
+-o-animation: rainbow 18s ease infinite;
+  animation: rainbow 18s ease infinite;}
+
+@-webkit-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@-moz-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@-o-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@keyframes rainbow { 
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+}
+
+

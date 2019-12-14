@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Quiz</title>
+<style>
+div#test { 
+    margin: auto;
+    border:rgb(5, 22, 121) 3px solid; 
+    padding:10px 40px 40px 40px; 
+    background-color:rgb(65, 112, 139); 
+    width:50%;
+}
+
+body {
+    background-color: rgb(14, 13, 13);
+    margin: 50px;
+    padding: 50px;
+    
+}
+h1, h2 {
+    color: azure;
+    text-align: center;
+
+}
+</style>
+    
+
+<script type="text/javascript">
+// pos is position of where the user in the test or which question they're up to
+var pos = 0, test, test_status, question, choice, choices, chA, chB, chC, correct = 0;
+// this is a multidimensional array with 4 inner array elements with 5 elements inside them
+// if you don't want answers viewable in the code, then you should use PHP and mySQL database
+var questions = [
+  ["The first blockchain was conceptualized by","Stornetta","Haber","Nakamoto","C"],  
+  ["The following is true of Blockchain except?", "decentralized", "distributed", "centralized", "C"],
+  ["The following are types of Blockchain except", "public", "consortium", "centralized", "C"],
+  ["Data is stored primarily in the internet through", "text", "drive", "ledgers", "C"],
+  ["Blockchain communicates through", "client-server", "peer to peer", "local network", "B"],
+  ["Use case for blockchain except", "supply chain", "digital assets", "emotions", "C"],
+  ["Blockchain is perfectly safe","True", "False","Maybe", "B" ],
+  ["Ideal for cryptographic hash except","deterministic","infeasible to reverse","not collision resistant", "C"],
+  ["Economic measure to deter denial-of-service attacks and other service abuses such as spam","proof of work","proof of stake","mining", "A"],
+  ["Permissible private blockchain by JP Morgan Chase", "Hyperledger","Quorum", "Ethereum", "B"],
+  ["Protocol intended to digitally facilitate, verify or enforce negotiation of a contract", "smart contract","contracts","cryptocurrency", "A"],
+  ["Initially described Ethereum through a white paper in 2014 ","Buterin", "Lim", "Calais","A"],
+  ["Compared to Bitcoin, Ethereum is all of the following except", "block time is 14 seconds","uses Ethash algorithm", "transaction fees are generally higher for ether compared with Bitcoin ", "C"],
+  ["Goal of Consensus Mechanism","Protect user data", "Facilitate agreement among participants", "Allow database update","B"],
+  ["Merkle Tree is a tree in which every leaf node is labelled with the hash of a data block, and every non-leaf node is labelled with cryptographic hash of its child nodes","True","False","Unknown", "A"]
+];
+// this get function is short for the getElementById function  
+function get(x){
+  return document.getElementById(x);
+}
+function renderQuestion(){
+  test = get("test");
+  if(pos >= questions.length){
+    test.innerHTML = "<h2>You got "+correct+" of "+questions.length+" questions correct</h2>";
+    get("test_status").innerHTML = "Test completed";
+    // resets the variable to allow users to restart the test
+    pos = 0;
+    correct = 0;
+    // stops rest of renderQuestion function running when test is completed
+    return false;
+  }
+  get("test_status").innerHTML = "Question "+(pos+1)+" of "+questions.length;
+  question = questions[pos][0];
+  chA = questions[pos][1];
+  chB = questions[pos][2];
+  chC = questions[pos][3];
+  test.innerHTML = "<h3>"+question+"</h3>";
+  // the += appends to the data we started on the line above
+  test.innerHTML += "<input type='radio' name='choices' value='A'> "+chA+"<br>";
+  test.innerHTML += "<input type='radio' name='choices' value='B'> "+chB+"<br>";
+  test.innerHTML += "<input type='radio' name='choices' value='C'> "+chC+"<br><br>";
+  test.innerHTML += "<button onclick='checkAnswer()'>Submit Answer</button>";
+}
+function checkAnswer(){
+  // use getElementsByName because we have an array which it will loop through
+  choices = document.getElementsByName("choices");
+  for(var i=0; i<choices.length; i++){
+    if(choices[i].checked){
+      choice = choices[i].value;
+    }
+  }
+  // checks if answer matches the correct choice
+  if(choice == questions[pos][4]){
+    //each time there is a correct answer this value increases
+    correct++;
+  }
+  // changes position of which character user is on
+  pos++;
+  // then the renderQuestion function runs again to go to next question
+  renderQuestion();
+}
+window.addEventListener("load", renderQuestion, false);
+</script>
+</head>
+<body>
+    <div class="container"> 
+        <h1>Blockchain</h1> <center> <button class="btn btn-3" onclick="location.href = 'quiz.html'; " >Back </button> </center> 
+        <h2 id="test_status"></h2>
+        <div id="test"></div>
+
+
+    </div>  
+</body>
+</html>
+
